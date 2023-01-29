@@ -19,6 +19,7 @@ Page({
     var that = this
     wx.login({
       success: (res) => {
+
         wx.request({
           url: 'https://tools.fushisanlang.cn/wind/poetry/read/' + options.code + '/' + options.poetryid,
           method: "get",
@@ -26,11 +27,25 @@ Page({
             code: res.code,
           },
           success: function (res) {
-            that.setData({
-              poetryInfo: res.data,
-              show: true,
+
+            if (res.statusCode == 401) {
+              wx.redirectTo({
+                url: '../register/register',
+              })
+            } else {
+              that.setData({
+                poetryInfo: res.data,
+                show: true,
+              })
+            }
+          },
+          fail() {
+
+            wx.redirectTo({
+              url: '../register/register',
             })
           }
+
         })
       },
     })
@@ -83,36 +98,21 @@ Page({
    */
 
   onShareAppMessage() {
-    //console.log( '/pages/read/read?code=' + this.data.poetryInfo.PoetryCode + '&poetryid=' + this.data.poetryInfo.PoetryId)
-    //console.log( this.data.poetryid)
-    const promise = new Promise(resolve => {
-      setTimeout(() => {
-        resolve({
-          title: '阅风-' + this.data.poetryInfo.PoetryTitle,
-          path: '/pages/read/read?code=' + this.data.poetryInfo.PoetryCode + '&poetryid=' + this.data.poetryInfo.PoetryId
-        })
-      }, 2000)
-    })
+
+
     return {
-      title: '自定义转发标题',
-      path: '/page/user?id=123',
-      promise
+      title: '阅风小程序-' + this.data.poetryInfo.PoetryTitle,
+      path: '/pages/read/read?code=' + this.data.poetryInfo.PoetryCode + '&poetryid=' + this.data.poetryInfo.PoetryId,
+
     }
   },
 
-  onShareTimeline(){
-    const promise = new Promise(resolve => {
-      setTimeout(() => {
-        resolve({
-          title: '阅风-' + this.data.poetryInfo.PoetryTitle,
-          path: '/pages/read/read?code=' + this.data.poetryInfo.PoetryCode + '&poetryid=' + this.data.poetryInfo.PoetryId,
-        })
-      }, 2000)
-    })
+  onShareTimeline() {
+
     return {
-      title: '阅风-' + this.data.poetryInfo.PoetryTitle,
-      path: '/pages/read/read?code=' + this.data.poetryInfo.PoetryCode + '&poetryid=' + this.data.poetryInfo.PoetryId,
-      promise
+      title: '《' + this.data.poetryInfo.PoetryTitle + "》-" + this.data.poetryInfo.PoetryAuthor,
+      query: 'code=' + this.data.poetryInfo.PoetryCode + '&poetryid=' + this.data.poetryInfo.PoetryId,
+  
     }
   },
 

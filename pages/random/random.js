@@ -95,21 +95,15 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage() {
-    //console.log( this.data.poetryInfo)
-    const promise = new Promise(resolve => {
-      setTimeout(() => {
-        resolve({
-          title: '阅风-' + this.data.poetryInfo.PoetryTitle,
-          path:'/pages/read/read?code=' + this.data.poetryInfo.PoetryCode + '&poetryid=' + this.data.poetryInfo.PoetryId
-        })
-      }, 2000)
-    })
+
+
     return {
-      title: '自定义转发标题',
-      path: '/page/user?id=123',
-      promise 
+      title: '阅风小程序-' + this.data.poetryInfo.PoetryTitle,
+      path: '/pages/read/read?code=' + this.data.poetryInfo.PoetryCode + '&poetryid=' + this.data.poetryInfo.PoetryId,
+
     }
   },
+ 
   random() {
     wx.redirectTo({
       url: '../random/random',

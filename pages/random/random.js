@@ -98,7 +98,7 @@ Page({
 
 
     return {
-      title: '阅风小程序-' + this.data.poetryInfo.PoetryTitle,
+      title: '《' + this.data.poetryInfo.PoetryTitle + "》-" + this.data.poetryInfo.PoetryAuthor,
       path: '/pages/read/read?code=' + this.data.poetryInfo.PoetryCode + '&poetryid=' + this.data.poetryInfo.PoetryId,
 
     }

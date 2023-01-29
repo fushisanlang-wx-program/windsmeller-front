@@ -15,17 +15,15 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-
     var that = this
-    wx.login({
-      success: (res) => {
-
+ 
+    
+ 
+ 
         wx.request({
           url: 'https://tools.fushisanlang.cn/wind/poetry/read/' + options.code + '/' + options.poetryid,
           method: "get",
-          data: {
-            code: res.code,
-          },
+         
           success: function (res) {
 
             if (res.statusCode == 401) {
@@ -47,8 +45,8 @@ Page({
           }
 
         })
-      },
-    })
+     
+    
   },
 
   /**
@@ -101,17 +99,16 @@ Page({
 
 
     return {
-      title: '阅风小程序-' + this.data.poetryInfo.PoetryTitle,
+      title: '《' + this.data.poetryInfo.PoetryTitle + "》-" + this.data.poetryInfo.PoetryAuthor,
       path: '/pages/read/read?code=' + this.data.poetryInfo.PoetryCode + '&poetryid=' + this.data.poetryInfo.PoetryId,
 
     }
   },
 
   onShareTimeline() {
-
-    return {
+     return {
       title: '《' + this.data.poetryInfo.PoetryTitle + "》-" + this.data.poetryInfo.PoetryAuthor,
-      query: 'code=' + this.data.poetryInfo.PoetryCode + '&poetryid=' + this.data.poetryInfo.PoetryId,
+      query: 'status=false&code=' + this.data.poetryInfo.PoetryCode + '&poetryid=' + this.data.poetryInfo.PoetryId,
   
     }
   },

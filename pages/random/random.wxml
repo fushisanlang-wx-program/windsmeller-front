@@ -1,0 +1,30 @@
+<!--pages/random/random.wxml-->
+
+<view class="container">
+
+  <view class="svg-demo-container">
+
+    <text class="title-text"  >{{poetryInfo.PoetryTitle}}</text>
+    <text class="second-title-text"> {{poetryInfo.PoetryAuthor}}\n </text>
+  </view>
+
+  <block wx:for="{{poetryInfo.PoetryParagraphs}}" wx:key="id">
+    <mp-cell class="ext-class"> {{item}} </mp-cell>
+   
+  </block>
+
+
+</view>
+
+
+<view class="page__bd">
+  <view class="weui-btn-area">
+    <button wx:if="{{show == true}}" class="weui-btn" type="primary" bindtap="starlist" style="background-color: 1a2a3a;">收藏列表</button>
+    <button wx:if="{{show == true}}" class="weui-btn" type="primary" bindtap="star">收藏本首</button>
+    <button wx:if="{{show == true}}" class="weui-btn" type="default" bindtap="random">随机一首</button>
+    <button wx:if="{{show == true}}" class="weui-btn" type="warn" bindtap="err">举报异常</button>
+
+
+
+  </view>
+</view>

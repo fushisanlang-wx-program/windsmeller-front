@@ -1,0 +1,25 @@
+<!--pages/star/star.wxml-->
+<view class="container">
+  <view class="svg-demo-container">
+
+<text class="title-text" wx:if="{{show == true}}">收藏列表</text>
+<text class="second-title-text"> {{poetryInfo.PoetryAuthor}}\n </text>
+</view>
+  <block wx:for="{{starList}}" wx:key="id">
+    <mp-cell data-code="{{item.code}}" data-poetryid="{{item.poetryid}}" class="ext-class" bindtap="read"> {{item.title}} </mp-cell>
+     
+  </block>
+
+
+</view>
+<view class="page__bd">
+  <view class="weui-btn-area">
+ 
+    
+    <button wx:if="{{show == true}}" class="weui-btn" type="default" bindtap="random">随机一首</button>
+    
+
+
+
+  </view>
+</view>

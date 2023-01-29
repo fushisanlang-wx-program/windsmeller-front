@@ -26,12 +26,23 @@ Page({
 
           success: function (res) {
 
+            if (res.statusCode == 401) {
+              wx.redirectTo({
+                url: '../register/register',
+              })
+            } else {
+              that.setData({
+                poetryInfo: res.data,
+                show: true,
+              })
+            }
 
-            that.setData({
-              poetryInfo: res.data,
-              show: true,
+          },
+          fail() {
+
+            wx.redirectTo({
+              url: '../register/register',
             })
-
           }
         })
       },
@@ -84,7 +95,20 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage() {
-
+    //console.log( this.data.poetryInfo)
+    const promise = new Promise(resolve => {
+      setTimeout(() => {
+        resolve({
+          title: '阅风-' + this.data.poetryInfo.PoetryTitle,
+          path:'/pages/read/read?code=' + this.data.poetryInfo.PoetryCode + '&poetryid=' + this.data.poetryInfo.PoetryId
+        })
+      }, 2000)
+    })
+    return {
+      title: '自定义转发标题',
+      path: '/page/user?id=123',
+      promise 
+    }
   },
   random() {
     wx.redirectTo({
@@ -118,7 +142,7 @@ Page({
 
 
   },
-  starlist(){
+  starlist() {
     wx.redirectTo({
       url: '../star/star',
     })
@@ -146,7 +170,8 @@ Page({
               url: '../star/star',
             })
 
-          }
+          },
+
         })
       },
     })

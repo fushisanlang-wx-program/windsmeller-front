@@ -20,7 +20,7 @@ Page({
     wx.login({
       success: (res) => {
         wx.request({
-          url: 'https://tools.fushisanlang.cn/wind/poetry/read/'+ options.code + '/'+options.poetryid,
+          url: 'https://tools.fushisanlang.cn/wind/poetry/read/' + options.code + '/' + options.poetryid,
           method: "get",
           data: {
             code: res.code,
@@ -30,7 +30,7 @@ Page({
               poetryInfo: res.data,
               show: true,
             })
-          } 
+          }
         })
       },
     })
@@ -81,9 +81,42 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage() {
 
+  onShareAppMessage() {
+    //console.log( '/pages/read/read?code=' + this.data.poetryInfo.PoetryCode + '&poetryid=' + this.data.poetryInfo.PoetryId)
+    //console.log( this.data.poetryid)
+    const promise = new Promise(resolve => {
+      setTimeout(() => {
+        resolve({
+          title: '阅风-' + this.data.poetryInfo.PoetryTitle,
+          path: '/pages/read/read?code=' + this.data.poetryInfo.PoetryCode + '&poetryid=' + this.data.poetryInfo.PoetryId
+        })
+      }, 2000)
+    })
+    return {
+      title: '自定义转发标题',
+      path: '/page/user?id=123',
+      promise
+    }
   },
+
+  onShareTimeline(){
+    const promise = new Promise(resolve => {
+      setTimeout(() => {
+        resolve({
+          title: '阅风-' + this.data.poetryInfo.PoetryTitle,
+          path: '/pages/read/read?code=' + this.data.poetryInfo.PoetryCode + '&poetryid=' + this.data.poetryInfo.PoetryId,
+        })
+      }, 2000)
+    })
+    return {
+      title: '阅风-' + this.data.poetryInfo.PoetryTitle,
+      path: '/pages/read/read?code=' + this.data.poetryInfo.PoetryCode + '&poetryid=' + this.data.poetryInfo.PoetryId,
+      promise
+    }
+  },
+
+
   random() {
     wx.redirectTo({
       url: '../random/random',
@@ -116,10 +149,10 @@ Page({
 
 
   },
-  starlist(){
-wx.redirectTo({
-  url: '../star/star',
-})
+  starlist() {
+    wx.redirectTo({
+      url: '../star/star',
+    })
   },
   delstar() {
     var that = this
